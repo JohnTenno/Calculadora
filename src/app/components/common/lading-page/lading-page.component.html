@@ -1,0 +1,97 @@
+<nav class="navbar" [ngClass]="{'transparent': isTransparent}">
+  <div class="container">
+    <div class="logo">
+      <img src="assets/img/logo.png" alt="Logo">
+      <span class="tittle">Local Police Department</span>
+    </div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="nav-toggle-label" [ngClass]="{'black-text': isTransparent}">
+      <span></span>
+    </label>
+    <div class="nav-items" [ngClass]="{'black-text': isTransparent}">
+      <ul>
+        <li><button class="button" [ngClass]="{'transparent': isTransparent}" (click)="scrollTo('hero')">Home</button></li>
+        <li><button class="button" [ngClass]="{'transparent': isTransparent}" (click)="scrollTo('about')">About</button>
+          </li>
+          <li><button class="button" [ngClass]="{'transparent': isTransparent}" (click)="scrollTo('join')">Join</button></li>
+          <li><button class="button" [ngClass]="{'transparent': isTransparent}" (click)="login()">Login</button></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="hero" id="hero" [style.background-image]="'url(' + images[currentIndex] + ')'">
+  <div class="container">
+    <div >
+      <h1 class="desktop-title">LOCAL POLICE</h1>
+      <br>
+      <h1 class="desktop-title">DEPARTMENT</h1>
+    <p class="desktop-text">The Loli Police Department is a VRChat roleplaying community focused on the interaction with
+      members of the public and the VRChat community at large.</p>
+      </div>
+    <img src="./assets/img/logo.png" class="desktop-image" alt="Imagen">
+  </div>
+</div>
+
+
+<section id="about"></section>
+<div class="card" [ngClass]="{'spawn': spawncardAboutUS}">
+  <div class="card-header">
+    <h2 class="text-center">What is the LPD</h2>
+  </div>
+  <div class="content">
+    <div class="text" id="cardAboutUS">
+      <p> The Loli Police Department is a VRChat roleplaying community focused on the interaction with members of the
+        public and the VRChat community at large. The LPD is an organization that is focused on its core beliefs of
+        entertainment of the general populous, fighting against annoying memes, and protecting players from harassment.
+        Community as a whole is an essential part of the everyday activity within the LPD and something that we take
+        pride in.</p>
+      <p>The Loli Police Department is a group born out of a purely fun idea that former Chief Sarma had in 2017. After
+        some tinkering with avatar works and worldmaking, this group became its entity in the year of 2018.
+        Because of internal affairs, the original group ceased to exist in an event we refer to as "The Nuke",
+        generating an environment for passionate members to help rebuild Sarma's legacy. These events lead to the
+        administrations of people like Rickity, Hroi, Molls, and Karet to lead our group into what you currently
+        experience at the Loli Police Department.</p>
+    </div>
+    <div class="image">
+      <img src="./assets/img/logo.png" alt="Descripción de la imagen">
+    </div>
+  </div>
+</div>
+
+<div class="hero2" id="hero">
+  <iframe class="video" width="100%" height="100%"
+    src="https://www.youtube.com/embed/3zW5Q66x_tg?si=8vo10j-R6c95mdrY&amp;controls=1" title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<section id="join"></section>
+
+<div class="card" [ngClass]="{'spawn': spawncardJoinUS}">
+  <div class="card-header">
+    <h2 class="text-center">How do I join the LPD?</h2>
+  </div>
+  <div class="content">
+    <div class="text" id="cardJoinUS">
+      <div class="cardMini card-body">
+        <p>You can join by filling out our application form here</p>
+        <button class="btn btn-primary" routerLink="/aplication">I want to join!</button>
+      </div>
+      <div class="cardMini card-body">
+        <p>Where's the LPD handbook before I apply to join the LPD?</p>
+      <a class="btn btn-primary" href="https://docs.google.com/document/d/1TVb3fHNTd2JNIcrxtYrUHCu-KwipcDAf08O4VZpGXo0" target="_blank">Here!</a>
+      </div>
+      <div class="cardMini card-body">
+        <p>How do I know if my application was accepted or denied?</p>
+      <a class="btn btn-primary" href="https://docs.google.com/document/d/1TVb3fHNTd2JNIcrxtYrUHCu-KwipcDAf08O4VZpGXo0" target="_blank">Here!</a>
+      </div>
+    </div>
+    <div class="image">
+      <img src="./assets/img/logo.png" alt="Descripción de la imagen">
+    </div>
+  </div>
+  
+</div>
+
+<app-footer></app-footer>

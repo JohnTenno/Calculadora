@@ -1,0 +1,53 @@
+<div class="{{isCard?'card':''}}" *ngIf="queryByParamsInstance">
+  <div class="card-header p-3">
+    <ng-content select="[tableTitle]"></ng-content>
+    <div class="card-actions d-flex justify-content-end gap-2 w-100">
+      <ng-content select="[headerFilters]"></ng-content>
+      <div class="input-icon d-inline-block">
+        <span class="input-icon-addon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          </svg>
+        </span>
+        <input type="text" value="" class="form-control" placeholder="Buscar..." (change)="onSearchChange()"
+          [(ngModel)]="queryByParamsInstance.search" />
+      </div>
+      <app-refresh-button (onClick)="onSearch()" [isLoading]="queryByParamsInstance.isLoading"
+        text=""></app-refresh-button>
+      <ng-content select="[headerButtons]"></ng-content>
+    </div>
+  </div>
+  <ng-content></ng-content>
+  <!-- <ng-container [ngTemplateOutlet]="queryByParamsInstance.templateRef"></ng-container> -->
+  <h3 *ngIf="queryByParamsInstance.isEmpty" class="text-muted text-center my-3">
+    {{textForNoData}}
+  </h3>
+  <h3 *ngIf="queryByParamsInstance.firstLoad" class="text-muted text-center my-3">
+    <span class="spinner-border spinner-border-lg" role="status"></span>
+  </h3>
+
+  <div class="card-footer d-flex justify-content-between">
+    <div class="p-2">
+      Página {{ queryByParamsInstance.currentPage }} de
+      {{ queryByParamsInstance.totalPages }}
+      <span class="spinner-border spinner-border-sm ms-2" role="status" *ngIf="queryByParamsInstance.isLoading"></span>
+    </div>
+    <ul class="pagination m-0 ms-auto">
+      <li class="page-item">
+        <button (click)="onPrevious()" [disabled]="queryByParamsInstance.isInDownLimit" class="page-link"
+          [ngClass]="{ disabled: queryByParamsInstance.isInDownLimit }">
+          Anterior
+        </button>
+      </li>
+      <li class="page-item ps-3">
+        <button (click)="onNext()" [disabled]="queryByParamsInstance.isInTopLimit" class="page-link ms-2"
+          [ngClass]="{ disabled: queryByParamsInstance.isInTopLimit }">
+          Siguiente
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

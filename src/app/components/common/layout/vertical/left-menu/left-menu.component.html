@@ -1,0 +1,113 @@
+<div class="container-fluid d-print-none" *ngIf="!isLoading">
+  <button class="navbar-toggler d-print-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu"
+    aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse pt-3" id="sidebar-menu">
+    <ul class="navbar-nav">
+      <h2 class="page-pretitle m-2">Menú Principal</h2>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link d-blok" href="javascript:void(0)" [routerLink]="['/dashboard']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-device-desktop"></i>
+          </span>
+          <span class="nav-link-title"> Dashboard </span>
+        </a>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active" >
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/reports']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-clipboard-copy"></i>
+          </span>
+          <span class="nav-link-title"> Aplication </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/Aplications']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-user-search"></i>
+          </span>
+          <span class="nav-link-title"> Approval request </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" >
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/subclients']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-users-group"></i>
+          </span>
+          <span class="nav-link-title"> Meetings </span>
+        </a>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active"
+       >
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/licenses']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-file-certificate"></i>
+          </span>
+          <span class="nav-link-title"> Reports </span>
+        </a>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/employees']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-user-circle"></i>
+          </span>
+          <span class="nav-link-title"> Approved avatars </span>
+        </a>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active" >
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/evaluations']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-calendar-stats"></i>
+          </span>
+          <span class="nav-link-title"> Events </span>
+        </a>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active"
+       >
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/appointments']">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-calendar-month"></i>
+          </span>
+          <span class="nav-link-title"> Calendar </span>
+        </a>
+      </li>
+
+
+      <hr class="hr-text m-2" />
+
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" href="javascript:void(0)" (click)="showLogoutDialog()">
+          <span class="nav-link-icon d-md-none d-lg-inline-block">
+            <i class="icon ti ti-logout"></i>
+          </span>
+          <span class="nav-link-title"> log out </span>
+        </a>
+      </li>
+
+
+    </ul>
+  </div>
+</div>
+
+<p-dialog header="Log Out" [modal]="true" [closable]="false" [(visible)]="visibleLogoutDialog" [style]="{ width: '30rem' }">
+  <p>
+    Do you want to log out?
+  </p>
+  <ng-template pTemplate="footer">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="visibleLogoutDialog = false;">
+        Cancel
+      </button>
+      <button type="button" class="btn ms-2 btn-primary" (click)="logout()">
+        Accept
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

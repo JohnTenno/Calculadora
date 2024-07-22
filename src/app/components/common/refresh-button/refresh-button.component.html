@@ -1,0 +1,6 @@
+<button [ngClass]="classes.length==0?'btn btn-icon btn-secondary':
+              ['btn'].concat(classes)" [disabled]="isLoading" (click)="onClick()">
+  <i *ngIf="!isLoading" class="icon ti ti-refresh"></i>
+  <span *ngIf="isLoading" class="icon ti ti-refresh loading" role="status"></span>
+  {{text}}
+</button>

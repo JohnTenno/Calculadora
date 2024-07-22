@@ -1,0 +1,8 @@
+<button class="btn btn-icon btn-sm" (click)="onToggle()">
+  <i [ngClass]="{
+    'ti': true,
+    'ti-chevron-down': this.order=='desc',
+    'ti-chevron-up': this.order=='asc',
+    'ti-selector': !this.order
+  }"></i>
+</button>
