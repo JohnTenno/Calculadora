@@ -1,3 +1,18 @@
 .circle {
   border-radius: 50%;
 }
+
+.result-container {
+  text-align: center;
+}
+
+.result {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.discount {
+  font-size: 48px;
+  font-weight: bold;
+  color: #007bff;
+}

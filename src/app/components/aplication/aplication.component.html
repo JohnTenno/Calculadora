@@ -4,8 +4,8 @@
       <div class="col-sm-12 col-md-12 col-lg-7 col-xl-6">
         <div class="text-center my-3">
           <img class="circle img-fluid logo-auth" src="https://avatars.githubusercontent.com/u/131226056?v=4" alt="">
-      </div>
-      
+        </div>
+
         <div class="card">
           <div class="card-header">
             <h1>Calculadora de porcentajes</h1>
@@ -13,383 +13,48 @@
           <div class="container-tight">
           </div>
 
-          <form name="form" #form="ngForm" (ngSubmit)="form.form.valid && sendAplication()" novalidate>
+          <form name="form" #form="ngForm" (ngSubmit)="form.form.valid && calculate()" novalidate>
             <div class="card-body">
-              <div *ngIf="section == 0">
-                <div class="">
-                  <div class="input-icon">
-                    <span class="input-icon-addon">$</span>
-                    <input type="text" class="form-control" #priceLicense="ngModel"
-                      [ngClass]="{'is-invalid': form.submitted && priceLicense.invalid}"
-                      (change)="savePrice(true, i);" [(ngModel)]="evaluation.unitPriceString"
-                      [name]="'priceLicense' + i" [id]="'priceLicense' + i" placeholder="1000.00"
-                      [imask]="currencyMask" [unmask]="true" required>
-                  </div>
-                  <div *ngIf="form.submitted && priceLicense.errors?.['required']" class="invalid-feedback">
-                    El precio unitario es requerido.
-                  </div>
-                  <label class="form-label" for="username">Precio base</label>
-                  <label>Unicamente indica el precio base el producto!</label>
-                  <input type="text" name="username" class="form-control" id="username" required placeholder="Answer"
-                    #username="ngModel" [(ngModel)]="aplication.username"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && username.invalid    }">
+              <div class="">
+                <label class="form-label" for="username">Precio base</label>
+                <label>Unicamente indica el precio base el producto!</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon">$</span>
+                  <input type="text" class="form-control" #basePrice="ngModel"
+                    [ngClass]="{'is-invalid': form.submitted && basePrice.invalid}"
+                    [(ngModel)]="calculator.basePriceString" [name]="'basePrice'" [id]="'basePrice'"
+                    placeholder="1000.00" [imask]="currencyMask" [unmask]="true" required>
                 </div>
-                <ng-template [ngIf]="form.submitted ">
-                  <div class="invalid-feedback" *ngIf="username.errors?.['required']">Obligatory field
-                  </div>
-                </ng-template>
-                <div class=" my-4">
-                  <label class="form-label" for="discordName">What is your Discord name?</label>
-                  <label>Please include #XXXX (if your account is not using the new Discord naming system) Your Discord
-                    name must match your VRChat name, you can edit your nickname in the server.</label>
-                  <input type="text" name="discordName" class="form-control" id="discordName" required
-                    placeholder="Answer" #discordName="ngModel" [(ngModel)]="aplication.discordName"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && discordName.invalid    }">
-                  <ng-template [ngIf]="form.submitted ">
-                    <div class="invalid-feedback" *ngIf="discordName.errors?.['required']">Obligatory field
-                    </div>
-                  </ng-template>
+                <div *ngIf="form.submitted && basePrice.errors?.['required']" class="invalid-feedback">
+                  El precio es requerido.
                 </div>
               </div>
 
-
-              <div *ngIf="section == 1">
-                <div class="">
-                  <label class="form-label" for="age">What is your current age?
-                    *</label>
-                  <input type="number" name="age" class="form-control" id="age" required placeholder="Answer"
-                    #age="ngModel" [(ngModel)]="aplication.age"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && age.invalid && section === 1 }">
+              <div class="my-4">
+                <label class="form-label" for="discordName">Precio final Deseado</label>
+                <label>Indique cual es el precio que desea</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon">$</span>
+                  <input type="text" class="form-control" #finalPrice="ngModel"
+                    [ngClass]="{'is-invalid': form.submitted && finalPrice.invalid}"
+                    [(ngModel)]="calculator.finalPriceString" [name]="'finalPrice'" [id]="'finalPrice'"
+                    placeholder="1000.00" [imask]="currencyMask" [unmask]="true" required>
                 </div>
-                <ng-template [ngIf]="form.submitted && section === 1">
-                  <div class="invalid-feedback" *ngIf="age.errors?.['required']">Obligatory field
-                  </div>
-                </ng-template>
-
-                <div class=" my-4">
-                  <label class="form-label">Are you Mute?</label>
-                  <div class="d-flex gap-2">
-                    <label class="form-selectgroup-item">
-                      <input type="radio" name="mute" #mute="ngModel" id="mute-true" [value]="true"
-                        [(ngModel)]="aplication.mute" class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && mute.invalid 
-                              }" />
-                      <div class="form-selectgroup-label d-flex align-items-center">
-                        <span class="">
-                          yes
-                        </span>
-                      </div>
-                    </label>
-                    <label class="form-selectgroup-item">
-                      <input type="radio" name="mute" #mute="ngModel" id="mute-false" [value]="false"
-                        [(ngModel)]="aplication.mute" class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && mute.invalid 
-                              }" />
-                      <div class="form-selectgroup-label d-flex align-items-center">
-                        <span class="">
-                          No
-                        </span>
-                      </div>
-                    </label>
-                  </div>
-                  <ng-template [ngIf]="form.submitted && section === 1">
-                    <div class="invalid-feedback" *ngIf="mute.errors?.['required']">Obligatory field
-                    </div>
-                  </ng-template>
+                <div *ngIf="form.submitted && basePrice.errors?.['required']" class="invalid-feedback">
+                  El precio es requerido.
                 </div>
-              </div>
-
-              <div *ngIf="section == 2">
-                <div class="">
-                  <label class="form-label" for="lenguajes">What languages do you speak?
-                  </label>
-                  <input type="text" name="lenguajes" class="form-control" id="lenguajes" required placeholder="Answer"
-                    #lenguajes="ngModel" [(ngModel)]="aplication.lenguajes"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && lenguajes.invalid  }">
-                </div>
-                <ng-template [ngIf]="form.submitted  ">
-                  <div class="invalid-feedback" *ngIf="lenguajes.errors?.['required']">Obligatory field
-                  </div>
-                </ng-template>
-
-                <div class=" my-4">
-                  <label class="form-label">Do you have a VR headset?</label>
-                  <label>You are able to play in Desktop mode as well. Standalone Quest is not supported at this time
-                    however, you can use a Quest 2 with a link cable.</label>
-                  <div class="d-flex gap-2">
-                    <label class="form-selectgroup-item">
-                      <input type="radio" name="hasHeadset" #hasHeadset="ngModel" id="hasHeadset-true" [value]="true"
-                        [(ngModel)]="aplication.hasHeadset" class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && hasHeadset.invalid 
-                              }" />
-                      <div class="form-selectgroup-label d-flex align-items-center">
-                        <span class="">
-                          yes
-                        </span>
-                      </div>
-                    </label>
-                    <label class="form-selectgroup-item">
-                      <input type="radio" name="hasHeadset" #hasHeadset="ngModel" id="hasHeadset-false" [value]="false"
-                        [(ngModel)]="aplication.hasHeadset" class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && hasHeadset.invalid 
-                              }" />
-                      <div class="form-selectgroup-label d-flex align-items-center">
-                        <span class="">
-                          No
-                        </span>
-                      </div>
-                    </label>
-
-                  </div>
-                  <ng-template [ngIf]="form.submitted  ">
-                    <div class="invalid-feedback" *ngIf="hasHeadset.errors?.['required']">Obligatory field
-                    </div>
-                  </ng-template>
-                </div>
-              </div>
-
-              <div *ngIf="section == 3">
-                <div class="">
-                  <label class="form-label" for="gpuModel">What GPU (graphics card) model do you have?
-
-                  </label>
-                  <label>it is important for our roleplay that you have a computer powerful enough to handle public
-                    instances without crashing or lagging too hard. If you do not know what GPU model you have please
-                    follow this guide to check it
-                    <a href="https://www.howtogeek.com/414201/how-to-check-what-graphics-card-gpu-is-in-your-pc/"
-                      target="_blank">Here</a>
-                  </label>
-                  <input type="text" name="gpuModel" class="form-control" id="gpuModel" required placeholder="Answer"
-                    #gpuModel="ngModel" [(ngModel)]="aplication.gpuModel"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && gpuModel.invalid  }">
-                </div>
-                <ng-template [ngIf]="form.submitted ">
-                  <div class="invalid-feedback" *ngIf="gpuModel.errors?.['required']">Obligatory field
-                  </div>
-                </ng-template>
-
-                <div class=" my-4">
-                  <label class="form-label">Are you part of any other VRChat Roleplay community?
-                    ?</label>
-                  <label>If yes, you must list the community names below..</label>
-                  <div class="d-flex gap-2">
-                    <label class="form-selectgroup-item">
-                      <input type="radio" name="hasAnotherCommunity" #hasAnotherCommunity="ngModel"
-                        id="hasAnotherCommunity-true" [value]="true" [(ngModel)]="aplication.hasAnotherCommunity"
-                        class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && hasAnotherCommunity.invalid
-                              }" />
-                      <div class="form-selectgroup-label d-flex align-items-center">
-                        <span class="">
-                          yes
-                        </span>
-                      </div>
-                    </label>
-                    <label class="form-selectgroup-item">
-                      <input type="radio" name="hasAnotherCommunity" #hasAnotherCommunity="ngModel"
-                        id="hasAnotherCommunity-false" [value]="false" [(ngModel)]="aplication.hasAnotherCommunity"
-                        class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && hasAnotherCommunity.invalid
-                              }" />
-                      <div class="form-selectgroup-label d-flex align-items-center">
-                        <span class="">
-                          No
-                        </span>
-                      </div>
-                    </label>
-
-                    <ng-template [ngIf]="aplication.hasAnotherCommunity">
-                      <div class="w-100">
-                        <input type="text" name="communitys" id="communitys" #communitys="ngModel" class="form-control"
-                          [(ngModel)]="aplication.communitys" [ngClass]="{
-                              'ng-dirty is-invalid':
-                                form.submitted && communitys.invalid 
-                            }" placeholder="Community" required />
-                        <label class="invalid-feedback" *ngIf="form.submitted && communitys.errors?.['required'] ">
-                          * Indicate the names of the communities
-                        </label>
-                      </div>
-                    </ng-template>
-                  </div>
-                  <ng-template [ngIf]="form.submitted">
-                    <div class="invalid-feedback" *ngIf="hasAnotherCommunity.errors?.['required']">Obligatory field
-                    </div>
-                  </ng-template>
-                </div>
-              </div>
-
-              <div *ngIf="section == 4">
-                <label class="form-label">Do you have any experience with RolePlay? If so tell us about it.
-                </label>
-                <div class="d-flex gap-2">
-                  <label class="form-selectgroup-item">
-                    <input type="radio" name="hasRoleExperencie" #hasRoleExperencie="ngModel"
-                      id="hasRoleExperencie-true" [value]="true" [(ngModel)]="aplication.hasRoleExperencie"
-                      class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && hasRoleExperencie.invalid
-                              }" />
-                    <div class="form-selectgroup-label d-flex align-items-center">
-                      <span class="">
-                        yes
-                      </span>
-                    </div>
-                  </label>
-                  <label class="form-selectgroup-item">
-                    <input type="radio" name="hasRoleExperencie" #hasRoleExperencie="ngModel"
-                      id="hasRoleExperencie-false" [value]="false" [(ngModel)]="aplication.hasRoleExperencie"
-                      class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && hasRoleExperencie.invalid
-                              }" />
-                    <div class="form-selectgroup-label d-flex align-items-center">
-                      <span class="">
-                        No
-                      </span>
-                    </div>
-                  </label>
-                  <ng-template [ngIf]="aplication.hasRoleExperencie">
-                    <div class="w-100">
-                      <input type="text" name="roleplayExperencie" id="roleplayExperencie" #roleplayExperencie="ngModel"
-                        class="form-control" [(ngModel)]="aplication.roleplayExperencie" [ngClass]="{
-                              'ng-dirty is-invalid':
-                                form.submitted && roleplayExperencie.invalid 
-                            }" placeholder="Answer" required />
-                      <label class="invalid-feedback"
-                        *ngIf="form.submitted && roleplayExperencie.errors?.['required'] ">
-                        * Need a answer
-                      </label>
-                    </div>
-                  </ng-template>
-                </div>
-                <ng-template [ngIf]="form.submitted">
-                  <div class="invalid-feedback" *ngIf="hasRoleExperencie.errors?.['required']">Obligatory field
-                  </div>
-                </ng-template>
-
-                <div class="my-4">
-                  <label class="form-label" for="skills">Do you have any skills that you feel you could contribute to
-                    help the community?
-                  </label>
-                  <input type="text" name="skills" class="form-control" id="skills" required placeholder="Answer"
-                    #skills="ngModel" [(ngModel)]="aplication.skills"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && skills.invalid  }">
-                  <ng-template [ngIf]="form.submitted ">
-                    <div class="invalid-feedback" *ngIf="skills.errors?.['required']">Obligatory field
-                    </div>
-                  </ng-template>
-                </div>
-              </div>
-
-              <div *ngIf="section == 5">
-                <label class="form-label">Have you been in the LPD before? If so when and why did you leave?
-                </label>
-                <div class="d-flex gap-2">
-                  <label class="form-selectgroup-item">
-                    <input type="radio" name="isOldMember" #isOldMember="ngModel" id="isOldMember-true" [value]="true"
-                      [(ngModel)]="aplication.isOldMember" class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && isOldMember.invalid
-                              }" />
-                    <div class="form-selectgroup-label d-flex align-items-center">
-                      <span class="">
-                        yes
-                      </span>
-                    </div>
-                  </label>
-                  <label class="form-selectgroup-item">
-                    <input type="radio" name="isOldMember" #isOldMember="ngModel" id="isOldMember-false" [value]="false"
-                      [(ngModel)]="aplication.isOldMember" class="form-selectgroup-input" required [ngClass]="{
-                                'ng-dirty is-invalid': form.submitted && isOldMember.invalid
-                              }" />
-                    <div class="form-selectgroup-label d-flex align-items-center">
-                      <span class="">
-                        No
-                      </span>
-                    </div>
-                  </label>
-                  <ng-template [ngIf]="aplication.isOldMember">
-                    <div class="w-100">
-                      <input type="text" name="oldMember" id="oldMember" #oldMember="ngModel" class="form-control"
-                        [(ngModel)]="aplication.oldMember" [ngClass]="{
-                              'ng-dirty is-invalid':
-                                form.submitted && oldMember.invalid 
-                            }" placeholder="Answer" required />
-                      <label class="invalid-feedback" *ngIf="form.submitted && oldMember.errors?.['required'] ">
-                        * Need a answer
-                      </label>
-                    </div>
-                  </ng-template>
-                </div>
-                <ng-template [ngIf]="form.submitted ">
-                  <div class="invalid-feedback" *ngIf="isOldMember.errors?.['required']">Obligatory field
-                  </div>
-                </ng-template>
-
-
-                <div class="my-4">
-                  <label class="form-label" for="reason">Why do you want to join the Loli Police Department?
-                  </label>
-                  <input type="text" name="reason" class="form-control" id="reason" required placeholder="Answer"
-                    #reason="ngModel" [(ngModel)]="aplication.reason"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && reason.invalid  }">
-                  <ng-template [ngIf]="form.submitted ">
-                    <div class="invalid-feedback" *ngIf="reason.errors?.['required']">Obligatory field
-                    </div>
-                  </ng-template>
-                </div>
-              </div>
-
-              <div *ngIf="section == 6">
-                <div class="">
-                  <label class="form-label" for="foundUs">How did you find out about us?
-                  </label>
-                  <input type="text" name="foundUs" class="form-control" id="foundUs" required placeholder="Answer"
-                    #foundUs="ngModel" [(ngModel)]="aplication.foundUs" (ngModelChange)="calculateRemain()"
-                    [ngClass]="{ 'is-invalid ng-dirty': form.submitted && foundUs.invalid }">
-                </div>
-                <ng-template [ngIf]="form.submitted ">
-                  <div class="invalid-feedback" *ngIf="foundUs.errors?.['required']">Obligatory field
-                  </div>
-                </ng-template>
-
-                <div class="my-4">
-                  <label class="form-label" for="rules">
-                    <p>
-                      Please confirm that you have read and understood the rules and information channels, including the
-                      handbook on the Discord server in the lpd-information channel. Note that the LPD are not VRChat
-                      moderators, have no affiliation with law enforcement, and do not enforce any rules within VRChat.
-                      The LPD expects members to exhibit a higher standard of maturity, using common sense in behavior
-                      and treating others with respect. Your behavior, both within and outside community activities, can
-                      affect your standing within the community. Have you understood these rules and agree to follow
-                      them?
-                    </p>
-                  </label>
-                </div>
-
-                <div class="mt-3 p-field-checkbox">
-                  <p-checkbox (click)="calculateRemain()" [(ngModel)]="aplication.undestoodRules" [binary]="true"
-                    (onChange)="!aplication.undestoodRules" name="keepLoggedCheck" #undestoodRules="ngModel" required
-                    [disabled]="aplication.undestoodRules"></p-checkbox>
-                  <label class="ms-2" for="keepLoggedCheck">I have read and understood the rules</label>
-                  <ng-template [ngIf]="form.submitted ">
-                    <div class="invalid-feedback" *ngIf="undestoodRules.errors?.['required']">Obligatory field
-                    </div>
-                  </ng-template>
-                </div>
-
-
               </div>
               <div class="form-footer mt-4">
                 <div>
-                  <button type="button" (click)="previous()" class="btn btn-primary me-2"
-                    [disabled]="isLoading || section == 0">
-                    <ng-container *ngIf="!isLoading">Previous</ng-container>
+                  <button type="submit" class="btn btn-primary me-2" [disabled]="isLoading">
+                    <ng-container *ngIf="!isLoading">Calcular</ng-container>
                     <ng-container *ngIf="isLoading">
                       <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                       Loading...
                     </ng-container>
                   </button>
-                  <button type="button" (click)="next()" class="btn btn-primary me-2"
-                    [disabled]="isLoading || section == 6">
-                    <ng-container *ngIf="!isLoading">Next</ng-container>
+                  <button type="button" (click)="deleteData()" class="btn btn-secundary me-2" [disabled]="isLoading">
+                    <ng-container *ngIf="!isLoading">Borrar Datos</ng-container>
                     <ng-container *ngIf="isLoading">
                       <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                       Loading...
@@ -397,16 +62,6 @@
                   </button>
                 </div>
               </div>
-              <button *ngIf="section == 6 " type="submit" class="btn btn-primary w-100 mt-2"
-                [disabled]="isLoading || filledFields < totalFields">
-                <ng-container *ngIf="!isLoading">Submit</ng-container>
-                <ng-container *ngIf="isLoading">
-                  <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                  Loading...
-                </ng-container>
-              </button>
-
-
             </div>
           </form>
         </div>
@@ -437,29 +92,65 @@
 </p-dialog>
 
 
-
 <p-dialog [(visible)]="showDialog" [modal]="true" [closable]="false" [style]="{ width: '450px' }"
   styleClass="modal-content">
   <ng-template pTemplate="header">
-    <h5 class="modal-title">Hola!</h5>
+    <div *ngIf="discountPercentage !== null">
+    </div>
+    <h5 class="modal-title"> El porcentaje de descuento necesario es <span>
+      </span>
+    </h5>
   </ng-template>
+  <div class="result-container" *ngIf="discountPercentage !== null">
+    <div class="result">
+      <span class="discount">{{ discountPercentage.toFixed(2) }}%</span>
+    </div>
+  </div>
 
+<br>
   <div>
-    <p>Esto es unicamente una landing page para mi mamá,</p>
+    <p class="strong">Que vas hacer de comida?</p>
   </div>
 
   <div class="d-flex flex-wrap gap-3 mt-3">
     <div class="d-flex align-items-center custom-radio">
-      <p-radioButton name="cancel" [(ngModel)]="selectedEvaluationIsAvailableToMarkAsAbsence" [value]="false"
-        inputId="cancelEvaluation"></p-radioButton>
-      <label for="cancelEvaluation" class="ms-2">Cancelar evaluación</label>
+      <p-radioButton name="cancel" [(ngModel)]="foodSelect" [value]="foodSelectOptions.chilaquiles"
+        inputId="chilaquiles"></p-radioButton>
+      <label for="chilaquiles" class="ms-2">Chilaquiles verdes</label>
     </div>
     <div class="d-flex align-items-center custom-radio">
-      <p-radioButton name="cancel" [(ngModel)]="selectedEvaluationIsAvailableToMarkAsAbsence" [value]="true"
-        inputId="cancelEvaluationAbsence"></p-radioButton>
-      <label for="cancelEvaluationAbsence" class="ms-2">Marcar inasistencia</label>
+      <p-radioButton name="cancel" [(ngModel)]="foodSelect" [value]="foodSelectOptions.pastel"
+        inputId="pastel"></p-radioButton>
+      <label for="pastel" class="ms-2">Pastel de carne</label>
     </div>
   </div>
+<br>
+  <ng-container *ngIf="foodSelect === foodSelectOptions.chilaquiles">
+    <div>
+      <div class="text-center my-3">
+        <img class="circle img-fluid logo-auth" src="./assets/img/pastel.jpeg" alt="">
+      </div>
+      <p class="text-center strong">
+        Yo compro la coca!
+      </p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="foodSelect === foodSelectOptions.pastel">
+    <div>
+      <div class="text-center my-3">
+        <img class="circle img-fluid logo-auth" src="./assets/img/precio.jpeg" alt="">
+      </div>
+      <p class="text-center strong">
+        La quiero mucho!
+      </p>
+    </div>
+  </ng-container>
+
+  <ng-template #noData>
+    <div>Selecione un tipo de comida</div>
+  </ng-template>
+
+
 
   <ng-template pTemplate="footer">
     <div class="modal-footer">
