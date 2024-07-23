@@ -17,7 +17,7 @@
             <div class="card-body">
               <div class="">
                 <label class="form-label" for="username">Precio base</label>
-                <label>Unicamente indica el precio base el producto!</label>
+                <label>Indique el precio base del producto.</label>
                 <div class="input-icon">
                   <span class="input-icon-addon">$</span>
                   <input type="text" class="form-control" #basePrice="ngModel"
@@ -32,7 +32,7 @@
 
               <div class="my-4">
                 <label class="form-label" for="discordName">Precio final Deseado</label>
-                <label>Indique cual es el precio que desea</label>
+                <label>Indique cual es el precio que desea.</label>
                 <div class="input-icon">
                   <span class="input-icon-addon">$</span>
                   <input type="text" class="form-control" #finalPrice="ngModel"
@@ -70,7 +70,6 @@
   </div>
 </div>
 
-
 <p-dialog [(visible)]="showDialogConfirm" [modal]="true" [closable]="false" [style]="{ width: '450px' }"
   styleClass="modal-content">
   <ng-template pTemplate="header">
@@ -79,16 +78,6 @@
 
   <div class="strong">This action cannot be undone.
   </div>
-
-  <ng-template pTemplate="footer">
-    <button type="button" (click)="sendAnswers()" class="btn btn-primary me-2" [disabled]="isLoading">
-      <ng-container *ngIf="!isLoading">Les't Rock!</ng-container>
-      <ng-container *ngIf="isLoading">
-        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-        Loading...
-      </ng-container>
-    </button>
-  </ng-template>
 </p-dialog>
 
 
@@ -154,8 +143,8 @@
 
   <ng-template pTemplate="footer">
     <div class="modal-footer">
-      <button type="button" class="btn btn-light me-2" (click)="showDialog = false">
-        Okay
+      <button type="button" class="btn btn-secundary me-2" (click)="showDialog = false">
+        Cerrar
       </button>
     </div>
   </ng-template>

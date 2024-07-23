@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { Aplication } from '../../models/aplication/aplication.model';
 import { Calculator } from '../../models/calculator/calculator.model';
 import { CurrencyMask } from '../../models/currencyMask.model';
 
@@ -27,7 +26,6 @@ export class AplicationComponent implements OnInit {
   foodSelect: string = this.foodSelectOptions.default;
 
   isLoading: boolean = false;
-  aplication: Aplication = new Aplication();
   calculator: Calculator = new Calculator();
   showDialog: boolean = false;
   showDialogConfirm: boolean = false;
@@ -39,7 +37,6 @@ export class AplicationComponent implements OnInit {
   discountPercentage: number = 0;
 
   ngOnInit(): void {
-    this.calculateRemain();
   }
 
   calculate() {
@@ -60,33 +57,4 @@ export class AplicationComponent implements OnInit {
     this.calculator.finalPriceString = "";
     this.foodSelect = this.foodSelectOptions.default;
   }
-
-  calculateRemain() {
-    const healthConditionFields = Aplication.getProperties();
-    this.totalFields = healthConditionFields.length;
-    this.filledFields = Object.values(this.aplication).filter(value => value !== '').length;
-    this.progress = (this.filledFields * 100) / (this.totalFields);
-  }
-  sendAplication() {
-    this.showDialogConfirm = true;
-  }
-  next() {
-    this.calculateRemain();
-    this.section++;
-  }
-  previous() {
-    this.calculateRemain();
-    this.section--;
-  }
-
-  sendAnswers() {
-    this.isLoading = true;
-    setTimeout(() => {
-      this.messageService.add({ severity: 'info', summary: 'Sent', detail: 'Your answers has been submitted!' });
-      this.isLoading = false;
-      this.router.navigate(['dashboard']);
-    }, 2000);
-    this.sendAplication
-  }
-
 }
