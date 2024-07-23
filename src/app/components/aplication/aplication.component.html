@@ -5,7 +5,19 @@
         <div class="text-center my-3">
           <img class="circle img-fluid logo-auth" src="https://avatars.githubusercontent.com/u/131226056?v=4" alt="">
         </div>
-
+        <div class="theme-toggle-container fixed-bottom mb-3 me-3 d-flex justify-content-end">
+          <a href="javascript:void(0)" (click)="toggleTheme()" class="btn btn-floating theme-toggle hide-theme-dark"
+             data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Enable dark mode"
+             data-bs-original-title="Enable dark mode">
+            <i class="icon ti ti-moon"></i>
+          </a>
+          <a href="javascript:void(0)" (click)="toggleTheme()" class="btn btn-floating theme-toggle hide-theme-light"
+             data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Enable light mode"
+             data-bs-original-title="Enable light mode">
+            <i class="icon ti ti-brightness-up"></i>
+          </a>
+        </div>
+      
         <div class="card">
           <div class="card-header">
             <h1>Calculadora de porcentajes</h1>
@@ -59,6 +71,7 @@
                       <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                       Loading...
                     </ng-container>
+
                   </button>
                 </div>
               </div>
@@ -96,12 +109,12 @@
     </div>
   </div>
 
-<br>
-  <div>
+  <br>
+  <!-- <div>
     <p class="strong">Que vas hacer de comida?</p>
-  </div>
+  </div> -->
 
-  <div class="d-flex flex-wrap gap-3 mt-3">
+  <!-- <div class="d-flex flex-wrap gap-3 mt-3">
     <div class="d-flex align-items-center custom-radio">
       <p-radioButton name="cancel" [(ngModel)]="foodSelect" [value]="foodSelectOptions.chilaquiles"
         inputId="chilaquiles"></p-radioButton>
@@ -112,8 +125,9 @@
         inputId="pastel"></p-radioButton>
       <label for="pastel" class="ms-2">Pastel de carne</label>
     </div>
-  </div>
-<br>
+  </div> -->
+  <br>
+  <!-- <ng-container> -->
   <ng-container *ngIf="foodSelect === foodSelectOptions.chilaquiles">
     <div>
       <div class="text-center my-3">
@@ -124,7 +138,8 @@
       </p>
     </div>
   </ng-container>
-  <ng-container *ngIf="foodSelect === foodSelectOptions.pastel">
+  <!-- <ng-container *ngIf="foodSelect === foodSelectOptions.pastel"> -->
+  <ng-container>
     <div>
       <div class="text-center my-3">
         <img class="circle img-fluid logo-auth" src="./assets/img/precio.jpeg" alt="">
@@ -138,8 +153,6 @@
   <ng-template #noData>
     <div>Selecione un tipo de comida</div>
   </ng-template>
-
-
 
   <ng-template pTemplate="footer">
     <div class="modal-footer">

@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Calculator } from '../../models/calculator/calculator.model';
 import { CurrencyMask } from '../../models/currencyMask.model';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-aplication',
@@ -14,6 +15,7 @@ export class AplicationComponent implements OnInit {
 
   constructor(private messageService: MessageService,
     public router: Router,
+    public themeService: ThemeService,
   ) {
 
   }
@@ -37,6 +39,11 @@ export class AplicationComponent implements OnInit {
   discountPercentage: number = 0;
 
   ngOnInit(): void {
+
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 
   calculate() {
